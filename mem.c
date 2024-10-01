@@ -1,17 +1,19 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stddef.h>
 #include <stdint.h>
-#include <sys/types.h>
 
 int main() {
-  for (size_t i=1; i && i<SIZE_MAX; i<<=1) {
-    printf("Allocating: %zu\n",i);
-    void *p = malloc(i);
-    printf("Allocating: %zu %s\n",i, p!=NULL?"success":"failure");
+  size_t l=1, r=SIZE_MAX, m;
+  void *p;
+  while (l<r-1){
+    m=l+((r-l)>>1);
+    printf("Allocating: %zu\n",m);
+    if  ( (p = malloc(m)) != NULL) l = m;
+    else r = m;
+    printf("Allocating: %zu %s\n",m, p!=NULL?"success":"failure");
     p!=NULL?free(p):NULL;
   }
-  printf("finished\n");
   printf("SIZE_MAX: %zu\n", SIZE_MAX);
+  printf("Largest possible allocation was %zu.\n", l);
   return 0;
 }
