@@ -9,12 +9,12 @@ int main() {
   void *p;
   while (l < r - 1) {
     m = l + ((r - l) >> 1);
-    printf("Allocating: %zu\n", m);
+    printf("Allocating: %30.zu", m);
     if ((p = malloc(m)) != NULL)
       l = m;
     else
       r = m;
-    printf("Allocating: %zu %s\n", m, p != NULL ? "success" : "failure");
+    printf(" %s\n", p != NULL ? "success" : "failure");
     p != NULL ? free(p) : NULL;
   }
 
